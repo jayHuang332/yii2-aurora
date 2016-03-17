@@ -1,34 +1,23 @@
 {
-    // package name
     "name": "yiisoft/yii2-aurora",
 
-    // package type
     "type": "yii2-extension",
 
-    "description": "The Imagine integration for the Yii framework",
-    "keywords": ["yii2", "imagine", "image", "helper"],
+    "description": "The Extension of Aurora for the Yii framework",
+    "keywords": ["yii2", "aurora"],
     "license": "BSD-3-Clause",
     "support": {
-        "issues": "https://github.com/yiisoft/yii2/issues?labels=ext%3Aimagine",
-        "forum": "http://www.yiiframework.com/forum/",
-        "wiki": "http://www.yiiframework.com/wiki/",
-        "irc": "irc://irc.freenode.net/yii",
-        "source": "https://github.com/yiisoft/yii2"
+        "source": "https://github.com/jayHuang332/yii2-aurora"
     },
     "authors": [
         {
-            "name": "Antonio Ramirez",
-            "email": "amigo.cobos@gmail.com"
+            "name": "Jack.Huang",
+            "email": "jstrive@foxmail.com"
         }
     ],
-
-    // package dependencies
     "require": {
         "yiisoft/yii2": "*"
-//        "imagine/imagine": "v0.5.0"
     },
-
-    // class autoloading specs
     "autoload": {
         "psr-4": {
             "yii\\aurora\\": ""
