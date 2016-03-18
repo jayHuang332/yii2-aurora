@@ -24,6 +24,6 @@
         }
     },
     "extra": {
-        "bootstrap": "yii\\aurora\\MyBootstrapClass"
+        "bootstrap": "jackh\\aurora\\MyBootstrapClass"
     }
 }
