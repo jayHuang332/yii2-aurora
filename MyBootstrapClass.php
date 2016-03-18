@@ -1,5 +1,5 @@
 <?php
-namespace yii\aurora;
+namespace jackh\aurora;
 
 use yii\base\BootstrapInterface;
 use yii\base\Application;
@@ -10,6 +10,7 @@ class MyBootstrapClass implements BootstrapInterface
     {
         $app->on(Application::EVENT_BEFORE_REQUEST, function () {
              // do something here
+             echo 'i am in function bootstrap';
         });
     }
 }
