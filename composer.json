@@ -20,10 +20,12 @@
     },
     "autoload": {
         "psr-4": {
-            "yii\\aurora\\": ""
+            "jackh\\aurora\\": ""
         }
     },
     "extra": {
-        "bootstrap": "jackh\\aurora\\MyBootstrapClass"
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
     }
 }
