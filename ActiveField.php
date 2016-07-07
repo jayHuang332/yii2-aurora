@@ -161,9 +161,10 @@ class ActiveField extends \yii\widgets\ActiveField {
 
 		if ($this->placeholder) {
 			$attribute = $this->model->getAttributeLabel($this->attribute);
-			$placeholder = Html::encode($this->model->getAttributeLabel($attribute));
+			// $placeholder = Html::encode($this->model->getAttributeLabel($attribute));
 
-			$this->inputOptions["placeholder"] = $placeholder;
+			// $this->inputOptions["placeholder"] = $placeholder;
+			$this->inputOptions["placeholder"] = $attribute;
 		}
 	}
 
@@ -198,6 +199,7 @@ class ActiveField extends \yii\widgets\ActiveField {
 			if ($this->enableError === false) {
 				$this->parts['{error}'] = '';
 			}
+
 			if ($this->inputTemplate) {
 				$input = isset($this->parts['{input}']) ?
 				$this->parts['{input}'] : Html::activeTextInput($this->model, $this->attribute, $this->inputOptions);
@@ -411,9 +413,9 @@ class ActiveField extends \yii\widgets\ActiveField {
                     "image-tooltip": true,
                     "link-tooltip": true
                 }
-            });
-            jQuery(\'#quill-toolbar [data-toggle="upload"]\').upload(' . $options["upload"] . ')
-            var quill_input = jQuery("[name=\'' . $name . '\']").data("quill", quill);
+            }); ' .
+			(isset($options["upload"]) ? ('jQuery(\'#quill-toolbar [data-toggle="upload"]\').upload(' . $options["upload"] . ');') : '') .
+			'var quill_input = jQuery("[name=\'' . $name . '\']").data("quill", quill);
             quill.setHTML(quill_input.val())
             var isEditorEmpty = false, lastcursor = 0
             if(quill.getHTML()=="<div><br></div>") {
