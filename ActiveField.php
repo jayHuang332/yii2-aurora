@@ -115,7 +115,7 @@ class ActiveField extends \yii\widgets\ActiveField {
 	/**
 	 * @var string the template for checkboxes in default layout
 	 */
-	public $checkboxTemplate = "<div class=\"checkbox\">\n{beginLabel}\n{input}\n{labelTitle}\n{endLabel}\n{error}\n{hint}\n</div>";
+	public $checkboxTemplate = "{beginCheckboxWrapper}\n{beginLabel}\n{input}\n<div class=\"checkbox-label\"><i class=\"fa fa-check\"></i>{endCheckboxWrapper}\n{labelTitle}\n{endLabel}\n{error}\n{hint}\n</div>";
 	/**
 	 * @var string the template for radios in default layout
 	 */
@@ -123,7 +123,7 @@ class ActiveField extends \yii\widgets\ActiveField {
 	/**
 	 * @var string the template for checkboxes in horizontal layout
 	 */
-	public $horizontalCheckboxTemplate = "{beginWrapper}\n<div class=\"checkbox\">\n{beginLabel}\n{input}\n{labelTitle}\n{endLabel}\n</div>\n{error}\n{endWrapper}\n{hint}";
+	public $horizontalCheckboxTemplate = "{beginWrapper}\n{beginCheckboxWrapper}\n{beginLabel}\n{input}\n{labelTitle}\n{endLabel}\n{endCheckboxWrapper}\n{error}\n{endWrapper}\n{hint}";
 	/**
 	 * @var string the template for radio buttons in horizontal layout
 	 */
@@ -199,7 +199,6 @@ class ActiveField extends \yii\widgets\ActiveField {
 			if ($this->enableError === false) {
 				$this->parts['{error}'] = '';
 			}
-
 			if ($this->inputTemplate) {
 				$input = isset($this->parts['{input}']) ?
 				$this->parts['{input}'] : Html::activeTextInput($this->model, $this->attribute, $this->inputOptions);
@@ -221,6 +220,16 @@ class ActiveField extends \yii\widgets\ActiveField {
 				$this->template = $options['template'];
 				unset($options['template']);
 			}
+
+			$value = Html::getAttributeValue($this->model, $this->attribute);
+			if (!array_key_exists('value', $options)) {
+				$options['value'] = '1';
+			}
+			$checked = "$value" === "{$options['value']}";
+
+			$this->parts['{beginCheckboxWrapper}'] = Html::beginTag("div", ["class" => $checked ? "checkbox active" : "checkbox", "data-toggle" => "checkbox"]);
+			$this->parts['{endCheckboxWrapper}'] = Html::endTag("div");
+
 			if (isset($options['label'])) {
 				$this->parts['{labelTitle}'] = $options['label'];
 			}
@@ -233,6 +242,31 @@ class ActiveField extends \yii\widgets\ActiveField {
 		return parent::checkbox($options, false);
 	}
 
+	/**
+	 *	options => [
+	 *		onValue => "true",
+	 *		offValue => "false"
+	 *	]
+	 */
+
+	public function switch ($options = []) {
+		$options["onValue"] = isset($options["onValue"]) ? $options["onValue"] : 1;
+		$options["offValue"] = isset($options["offValue"]) ? $options["offValue"] : 0;
+		$options = array_merge($this->inputOptions, $options);
+		$this->adjustLabelFor($options);
+		$input = Html::activeHiddenInput($this->model, $this->attribute, $options);
+		$switch_label = Html::tag("div", Html::tag("div", "", ["class" => "switchbutton"]), ["class" => "switch-label"]);
+		// var_dump($this->attribute);
+		$switch = Html::tag("div", $input . $switch_label, [
+			"class" => "switch" . ($this->model->getAttribute($this->attribute) == $options["onValue"] ? " active" : ""),
+			"data-toggle" => "switch",
+			"data-on-value" => $options["onValue"],
+			"data-off-value" => $options["offValue"],
+		]);
+
+		$this->parts['{input}'] = $switch;
+		return $this;
+	}
 	/**
 	 * @inheritdoc
 	 */
@@ -449,8 +483,8 @@ class ActiveField extends \yii\widgets\ActiveField {
                     }
                 } else if (source == "user") {
                 	console.log("user", delta)
-                    quill_input.val(quill.getHTML())
                 }
+                quill_input.val(quill.getHTML())
             });
         ');
 
