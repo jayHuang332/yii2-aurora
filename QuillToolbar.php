@@ -1,14 +1,15 @@
 <div class="ql-format-group">
     <select title="Font" class="ql-font">
-        <option value="sans-serif" selected>Sans Serif</option>
-        <option value="Georgia, serif">Serif</option>
-        <option value="Monaco, 'Courier New', monospace">Monospace</option>
+        <option value="sans-serif" selected>黑体</option>
+        <option value="Georgia, serif">宋体</option>
+        <option value="Monaco, 'Courier New', monospace">微软雅黑</option>
     </select>
     <select title="Size" class="ql-size">
-        <option value="10px">Small</option>
-        <option value="13px" selected>Normal</option>
-        <option value="18px">Large</option>
-        <option value="32px">Huge</option>
+        <option value="10px">10px</option>
+        <option value="14px" selected>14px</option>
+        <option value="18px">18px</option>
+        <option value="24px">24px</option>
+        <option value="32px">32px</option>
     </select>
 </div>
 <div class="ql-format-group">
